@@ -49,14 +49,11 @@ struct ConcurrencyExam2: View {
 					do {
 						self.result = "결과값 : " + (try await sum(num1, num2))
 					} catch InputNumberError.bothInputZero {
-						self.message = "Both Input Value is Zero"
-						showingAlert.toggle()
+						catchReturnErrorMessage(message: "Both Input Value is Zero")
 					} catch InputNumberError.sameInput {
-						self.message = "Same Input Value"
-						showingAlert.toggle()
+						catchReturnErrorMessage(message: "Same Input Value")
 					} catch {
-						self.message = "Input Error"
-						showingAlert.toggle()
+						catchReturnErrorMessage(message: "Input Error")
 					}
 				}
 			}, label: {
@@ -100,6 +97,11 @@ struct ConcurrencyExam2: View {
 	
 	func sumFrom(_ start: Int, _ end: Int) async -> Int {
 		return (start...end).reduce(0, +)
+	}
+	
+	func catchReturnErrorMessage(message: String) {
+		self.message = message
+		showingAlert.toggle()
 	}
 }
 
