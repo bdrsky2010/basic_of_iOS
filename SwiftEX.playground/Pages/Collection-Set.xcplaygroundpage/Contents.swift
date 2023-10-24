@@ -73,3 +73,6 @@ func getSubsets<T: Comparable>(_ firstSet: Set<T>) -> [[T]] {
 let setI: Set<Int> = [1, 2, 3]
 let subsets = getSubsets(setI)
 print(subsets) // [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]
+
+let str = ["hello", "my name is", "minjae kim"]
+print(String(str.reduce("") { $0 + " " + $1 }.dropFirst()))
