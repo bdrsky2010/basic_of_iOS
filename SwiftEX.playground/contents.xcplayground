@@ -4,6 +4,11 @@
         <page name='Enum'/>
         <page name='ErrorHandling'/>
         <page name='Inheritance'/>
+        <page name='Clusure'/>
         <page name='Concurrency'/>
+        <page name='Collection-Dictionary'/>
+        <page name='Concurrency-Actor'/>
+        <page name='Higher-order function'/>
+        <page name='Collection-Set'/>
     </pages>
 </playground>
