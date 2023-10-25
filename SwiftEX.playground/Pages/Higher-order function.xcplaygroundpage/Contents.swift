@@ -47,7 +47,9 @@ let isOdd: (Int) -> Bool = { $0 % 2 == 1 }
 let square: (Int) -> Int = { $0 * $0 }
 
 func sumOfSquaresOfOdds(array: [Int]) -> Int {
-	return array.filter(isOdd).map(square).reduce(0, +)
+	return array.filter(isOdd)
+		.map(square)
+		.reduce(0, +)
 }
 
 let array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -60,7 +62,9 @@ print(sumOfSquaresOfOdds(array: array))
 let intToStr: (Character) -> String = { String($0) }
 
 func reverseWithoutVowels(string: String) -> String {
-	return String(string.map(intToStr).filter { !"AaEeIiOoUu".contains($0) }.joined().uppercased().reversed())
+	return String(string.filter { !"AaEeIiOoUu".contains($0) }
+		.uppercased()
+		.reversed())
 }
 
 let string = "Hello World"
@@ -73,8 +77,12 @@ print(reverseWithoutVowels(string: string))
  (보너스: 가능하신 분은 짝수인 값들의 키의 문자열 코드를 합하는 것을 시도해 보세요.)
  */
 func sumOfKeysWithEvenValues(dictionary: [String: Int]) -> (valueTotal: Int, asciiTotal: Int) {
-	let evenValue: [String: Int] = dictionary.filter { (key, value) in value % 2 == 0 }
-	return (evenValue.values.reduce(0, +), evenValue.keys.reduce(0) { $0 + Int(Character($1).asciiValue ?? 0) })
+	return dictionary
+		.filter { (key, value) in value % 2 == 0 }
+		.reduce(into: (0, 0)) {
+			$0.0 += $1.value
+			$0.1 += Int(Character($1.key).asciiValue ?? 0)
+		}
 }
 
 let dictionary = ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5]
@@ -85,7 +93,8 @@ print(sumOfKeysWithEvenValues(dictionary: dictionary))
  주어진 배열에서 가장 큰 수와 가장 작은 수의 차이를 구하는 함수를 작성하세요.
  */
 func differenceBetweenMaxAndMin(array: [Int]) -> Int {
-	return array.reduce(Int.min) { max($0, $1) } - array.reduce(Int.max) { min($0, $1) }
+//	return array.reduce(Int.min) { max($0, $1) } - array.reduce(Int.max) { min($0, $1) }
+	return array.reduce(Int.min, max) - array.reduce(Int.max, min)
 }
 
 let array2 = [10, 20, 30, 40, 50]
@@ -140,7 +149,7 @@ print(addStars(array: array5))
  주어진 배열에서 3의 배수만 골라내서 그 합을 구하는 함수를 작성하세요.
  */
 func sumOfMultiplesOfThree(array: [Int]) -> Int {
-	return array.filter { $0 % 3 == 0 }.reduce(0, +)
+	return array.reduce(0) { $0 + ($1 % 3 == 0 ? $1 : 0) }
 }
 let array6 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 print(sumOfMultiplesOfThree(array: array6))
@@ -153,9 +162,10 @@ let oneMore: (String) -> String = { $0 + $0 }
 
 func repeatTwice(array: [String]) -> [String] {
 // return (array + array).sorted()
-//	return array.map { $0 + $0 }.joined().split(separator: "").map { String($0) }
-	return array.map(oneMore).joined().split(separator: "").map { String($0) }
 //	return array.reduce(into: [String]()) { $0.append($1); $0.append($1) }
+//	return array.map { $0 + $0 }.joined().split(separator: "").map { String($0) }
+//	return array.map(oneMore).joined().split(separator: "").map { String($0) }
+	return array.map { [$0, $0] }.flatMap { $0 }
 }
 let array7 = ["a", "b", "c"]
 print(repeatTwice(array: array7))
@@ -172,3 +182,91 @@ func lengthsOfElements(array: [String]) -> [Int] {
 
 let array8 = ["apple", "banana", "cherry"]
 print(lengthsOfElements(array: array8))
+
+/*
+ 맵, 필터, 리듀스 예제 11
+ 주어진 문자열에서 모음(a, e, i, o, u)의 개수를 세는 함수를 작성하세요.
+ */
+func countVowels(_ word: String) -> Int {
+	word.reduce(0) { $0 + ("aeiou".contains($1.lowercased()) ? 1 : 0) }
+}
+
+let word = "swift"
+let vowelCount = countVowels(word)
+print(vowelCount) // 1
+
+/*
+ 맵, 필터, 리듀스 예제 12
+ 주어진 문자열에서 각 알파벳이 몇 번 나오는지 세는 함수를 작성하세요.
+ */
+func countAlphabets(_ word: String) -> [Character: Int] {
+	word.reduce(into: [Character: Int]()) {
+		$0[$1] = $1.isLetter ? ($0[$1] ?? 0) + 1 : nil
+	}
+}
+
+let word2 = "Hello2World!!"
+let alphabetCount = countAlphabets(word2)
+print(alphabetCount)  // ["e": 1, "o": 2, "r": 1, "H": 1, "W": 1, "d": 1, "l": 3]
+
+/*
+ 맵, 필터, 리듀스 예제 13
+ 주어진 문자열에서 각 단어의 첫 글자를 대문자로 바꾸는 함수를 작성하세요.
+ */
+func capitalize(_ sentence: String) -> String {
+//	sentence.capitalized(with: .current)
+	sentence
+		.components(separatedBy: " ")
+		.reduce(into: [String]()) { $0.append($1.prefix(1).uppercased() + $1.suffix($1.count - 1)) }
+		.joined(separator: " ")
+}
+let sentence = "this is a test"
+let capitalizedSentence = capitalize(sentence)
+print(capitalizedSentence)      // "This Is A Test"
+
+/*
+ 맵, 필터, 리듀스 예제 14
+ 주어진 배열에서 각 요소를 역순으로 정렬하는 함수를 작성하세요.
+
+ (컬렉션에서 제공하는 역순함수를 사용하지 않고 구현해 보세요.)
+ */
+
+func reverse(_ numbers: [Int]) -> [Int] {
+	numbers
+		.indices
+		.reduce(into: numbers) { (result, i) in
+			(0..<result.count - 1 - i ).forEach { j in
+				if result[j] < result[j + 1] { result.swapAt(j, j + 1) }
+			}
+		}
+}
+
+let numbers2 = [1, 3, 4, 2, 5]
+let reversedNumbers = reverse(numbers)
+print(reversedNumbers)      // [5, 2, 4, 3, 1]
+
+/*
+ 맵, 필터, 리듀스 예제 15
+ 주어진 문자열에서 모든 소문자를 대문자로 바꾸는 함수를 작성하세요.
+
+ (보너스: 대문자는 소문자로 소문자는 대문자로 시도해 보세요.)
+ */
+func uppercase(_ word: String) -> String {
+	word.reduce(into: "") { $0 += ($1.isUppercase ? $1.lowercased() : $1.uppercased()) }
+}
+
+let word3 = "swift"
+let uppercasedWord = uppercase(word3)
+print(uppercasedWord)       // "SWIFT"
+
+/*
+ 맵, 필터, 리듀스 예제 16
+ 주어진 문자열에서 모든 공백을 제거하는 함수를 작성하세요.
+ */
+func removeSpaces(_ sentence: String) -> String {
+	sentence.filter { !$0.isWhitespace }
+}
+
+let sentence2 = "This is a test"
+let noSpaceSentence = removeSpaces(sentence2)
+print(noSpaceSentence)      // "Thisisatest"
