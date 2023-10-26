@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+	
 	var body: some View {
-		NavigationView(content: {
+		NavigationView {
 			List {
 				Section("Caffeine S2") {
 					NavigationLink(destination: CaffeineS2()) { Text("팀 노션") }
@@ -48,9 +49,15 @@ struct ContentView: View {
 				Section("2023년 10월 19일") {
 					NavigationLink(destination: ConcurrencyListView()) { Text("ConcurrencyView") }
 				}
+				
+				Section("2023년 10월 26일") {
+					NavigationLink(destination: LifeCycleDemoView()) { Text("LifeCycleDemoView") }
+					NavigationLink(destination: ObservableDemoView()) { Text("ObservableDemoView") }
+					NavigationLink(destination: StorageDemoView()) { Text("StorageDemoView") }
+				}
 			}
 			.navigationTitle("예제")
-		})
+		}
 	}
 }
 
