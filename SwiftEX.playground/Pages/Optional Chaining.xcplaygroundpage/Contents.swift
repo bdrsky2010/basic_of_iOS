@@ -79,8 +79,8 @@ struct Person {
 
 var person: Person? = Person(name: "Kim", age: 25)
 
-print(person?.name)
-print(person?.age)
+print(person?.name ?? "")
+print(person?.age ?? 0)
 
 if let name = person?.name, let age = person?.age {
 	print()
@@ -105,8 +105,8 @@ struct Book {
 
 var book: Book? = Book(title: "The Little Prince", author: Author(name: "Antoine de Saint-Exupéry"))
 
-print(book?.title)              // The Little Prince
-print(book?.author?.name)       // Antoine de Saint-Exupéry
+print(book?.title ?? "")              // The Little Prince
+print(book?.author?.name ?? "")       // Antoine de Saint-Exupéry
 
 if let title = book?.title, let name = book?.author?.name {
 	print()
@@ -178,7 +178,7 @@ struct Matrix {
 }
 
 var matrix: Matrix? = Matrix(elements: [[1, 2, 3], [4, 5, 6]])
-print(matrix?.transpose().elements)
+print(matrix?.transpose().elements ?? [[]])
 
 if let elements = matrix?.transpose().elements {
 	print()
@@ -208,8 +208,4 @@ struct Student {
 var students2: [Student]? = [Student(name: "Kim", score: 80),
 														 Student(name: "Lee", score: 90),
 														 Student(name: "Park", score: 85)]
-if let sum = (students2?.reduce(0) { $0 + $1.score }), let count = students2?.count, count != 0 {
-	print(sum / count)
-} else {
-	print(0)
-}
+print((students2?.reduce(0) { $0 + $1.score } ?? 0) / (students2?.count ?? 1))
