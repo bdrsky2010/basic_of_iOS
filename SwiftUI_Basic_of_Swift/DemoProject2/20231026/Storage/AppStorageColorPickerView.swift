@@ -7,9 +7,17 @@
 
 import SwiftUI
 
+struct Rgba: Codable {
+	var red: CGFloat
+	var green: CGFloat
+	var blue: CGFloat
+	var alpha: CGFloat
+}
+
 class ColorData: ObservableObject {
 	// AppStorage를 통해 CGColor의 RGBA data를 문자열 형태로 Local Storage에 저장하는 프로퍼티
 	@AppStorage("myCGColor") var saveCGColor: String = ""
+	@AppStorage("myColor") var colorStore: Data = Data()
 	
 	// ColorPicker에서 pick한 color의 CGColor data 저장 및
 	// AppStorage에 저장한 CGColor를 다시 Load 하여 저장하는 프로퍼티
@@ -24,6 +32,18 @@ class ColorData: ObservableObject {
 		let rgba: [Float] = color.components(separatedBy: " ").map { Float($0) ?? 0 }
 		print(CGColor(red: CGFloat(rgba[0]), green: CGFloat(rgba[1]), blue: CGFloat(rgba[2]), alpha: CGFloat(1)))
 		return CGColor(red: CGFloat(rgba[0]), green: CGFloat(rgba[1]), blue: CGFloat(rgba[2]), alpha: CGFloat(1))
+	}
+	
+	func encoding() {
+		let encoder = JSONEncoder()
+		guard let data = try? encoder.encode(colorPick.components) else { return }
+		colorStore = data
+	}
+	
+	func decoding() {
+		let decoder = JSONDecoder()
+		guard let data = try? decoder.decode(Rgba.self, from: colorStore) else { return }
+		colorPick = CGColor(red: data.red, green: data.green, blue: data.blue, alpha: 1)
 	}
 }
 
