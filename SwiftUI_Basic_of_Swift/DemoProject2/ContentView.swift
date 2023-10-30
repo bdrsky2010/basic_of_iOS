@@ -55,6 +55,14 @@ struct ContentView: View {
 					NavigationLink(destination: ObservableDemoView()) { Text("ObservableDemoView") }
 					NavigationLink(destination: StorageDemoView()) { Text("StorageDemoView") }
 				}
+				
+				Section("2023년 10월 30일") {
+					NavigationLink(destination: AppStorageCodableView()) { Text("AppStorageCodableView") }
+					NavigationLink(destination: AlignmentView()) { Text("AlignmentView") }
+					NavigationLink(destination: AlignmentView2()) { Text("AlignmentView2") }
+					NavigationLink(destination: AlignmentZStackView()) { Text("AlignmentZStackView") }
+					NavigationLink(destination: AlignmentZStackView2()) { Text("AlignmentZStackView2") }
+				}
 			}
 			.navigationTitle("예제")
 		}
