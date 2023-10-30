@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct AppStorageNavigationSaveView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+	@AppStorage("selectedItem") var selectedItem: String?
+	let items = ["Apple", "Banana", "Cherry"]
+	
+	var body: some View {
+		NavigationView {
+			List(items, id: \.self) { item in
+				NavigationLink(
+					destination: Text(item),
+					tag: item,
+					selection: $selectedItem) {
+						Text(item)
+					}
+			}
+		}
+	}
 }
 
 #Preview {
-    AppStorageNavigationSaveView()
+	AppStorageNavigationSaveView()
 }
