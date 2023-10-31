@@ -63,6 +63,11 @@ struct ContentView: View {
 					NavigationLink(destination: AlignmentZStackView()) { Text("AlignmentZStackView") }
 					NavigationLink(destination: AlignmentZStackView2()) { Text("AlignmentZStackView2") }
 				}
+				Section("2023년 10월 31일") {
+					NavigationLink(destination: ListExampleListView()) {
+						Text("ListExampleListView")
+					}
+				}
 			}
 			.navigationTitle("예제")
 		}
