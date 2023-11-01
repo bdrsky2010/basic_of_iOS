@@ -68,6 +68,12 @@ struct ContentView: View {
 						Text("ListExampleListView")
 					}
 				}
+				
+				Section("2023년 11월 1일") {
+					NavigationLink(destination: NavigationExamListView()) {
+						Text("NavigationExamListView")
+					}
+				}
 			}
 			.navigationTitle("예제")
 		}
