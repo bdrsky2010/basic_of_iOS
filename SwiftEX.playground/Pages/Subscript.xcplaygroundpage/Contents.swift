@@ -24,13 +24,44 @@ mysc[1]
 mysc[1] = "Minjae"
 mysc[1]
 
+//extension String {
+//	subscript (reCount: Int) -> String {
+//		var str = ""
+//		for _ in 0..<reCount {
+//			str += self
+//		}
+//		return str
+//	}
+//}
+//print( "Hello"[5] )
+
 extension String {
-	subscript (reCount: Int) -> String {
-		var str = ""
-		for _ in 0..<reCount {
-			str += self
-		}
-		return str
+	subscript(index: Int) -> Character? {
+		guard index < self.count else { return nil }
+		return self[self.index(self.startIndex, offsetBy: index)]
+	}
+	
+	subscript(range: Range<Int>) -> String {
+		let start = self.index(self.startIndex, offsetBy: range.startIndex)
+		let end = self.index(self.startIndex,offsetBy: range.endIndex)
+		
+		return String(self[start..<end])
+	}
+	
+	// 1..<5 는 Range 타입
+	// 1...5 는 ClosedRange 타입
+	subscript(range: ClosedRange<Int>) -> String {
+		// ClosedRange 를 Range 타입으로 변환
+		let range = range.first!..<range.count
+		
+		let start = self.index(self.startIndex, offsetBy: range.startIndex)
+		let end = self.index(self.startIndex,offsetBy: range.endIndex)
+		
+		return String(self[start...end])
 	}
 }
-print( "Hello"[5] )
+print("minjae"[2] ?? "")
+
+var str: String = "helloSwift"
+print(str[1..<5])
+print(str[1...5])
