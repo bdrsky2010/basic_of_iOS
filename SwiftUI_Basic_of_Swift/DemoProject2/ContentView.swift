@@ -81,6 +81,21 @@ struct ContentView: View {
 						Text("ListNavDemoView")
 					}
 				}
+				
+				Section("2023년 11월 8일") {
+					NavigationLink(destination: NavigationSplitExampleView2()) {
+						Text("NavigationSplitExampleView2")
+					}
+					NavigationLink(destination: SliderGridExamView()) {
+						Text("SliderGridExamView")
+					}
+				}
+				
+				Section("구글 forms 클론") {
+					NavigationLink(destination: GoogleFormsMainView()) {
+						Text("GoogleFormsMainView")
+					}
+				}
 			}
 			.navigationTitle("예제")
 		}
