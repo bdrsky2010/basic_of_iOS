@@ -18,7 +18,7 @@ struct CaffeineS2: View {
 					}, label: {
 						Image(systemName: "arrowshape.left.fill")
 							.font(.title)
-							.foregroundColor(.blue)
+							.foregroundColor(.black)
 							.padding()
 					})
 					Spacer()
@@ -27,7 +27,7 @@ struct CaffeineS2: View {
 					}, label: {
 						Image(systemName: "arrowshape.right.fill")
 							.font(.title)
-							.foregroundColor(.blue)
+							.foregroundColor(.black)
 							.padding()
 					})
 					Spacer()
@@ -36,7 +36,7 @@ struct CaffeineS2: View {
 					}, label: {
 						Image(systemName: "arrow.clockwise.circle.fill")
 							.font(.title)
-							.foregroundColor(.blue)
+							.foregroundColor(.black)
 							.padding()
 					})
 					Spacer()
@@ -45,7 +45,7 @@ struct CaffeineS2: View {
 					}, label: {
 						Image(systemName: "house.fill")
 							.font(.title)
-							.foregroundColor(.blue)
+							.foregroundColor(.black)
 							.padding()
 					})
 				}
