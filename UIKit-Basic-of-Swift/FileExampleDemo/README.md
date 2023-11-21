@@ -43,8 +43,7 @@
  let docsURL = dirPaths[0]
  let newDir = docsURL.appendingPathComponent("data").path
  do {
-	 try filemgr.createDirectory(atPath: newDir,
-								 withIntermediateDirectories: true, attributes: nil)
+	 try filemgr.createDirectory(atPath: newDir, withIntermediateDirectories: true, attributes: nil)
  } catch let error as NSError {
 	 print("Error: \(error.localizedDescription)")
  }
