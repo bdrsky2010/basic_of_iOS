@@ -64,13 +64,42 @@ import Foundation
  */
 
 /**
- #
+ # 파일 복사
+ 
+ // copyItem(atPath:) 메소드를 사용하여 파일 복사를 수행
+ //  move 메소드와 마찬가지로 소스 및 대상 경로 이름을 인수로 사용
+
+ do {
+	 try filemgr.copyItem(atPath: filePath1, toPath: filePath2)
+	 print("Copy successful")
+ } catch let error {
+	 print("Error: \(error.localizedDescription)")
+ }
  */
 
 /**
- #
+ # 파일 제거
+ 
+ // RemoveItem(atPath:) 메소드는 파일 시스템에서 지정된 파일을 제거
+ // 제거할 파일의 경로 이름을 인수로 사용
+ do {
+	 try filemgr.removeItem(atPath: filePath2)
+	 print("Removal successful")
+ } catch let error {
+	 print("Error: \(error.localizedDescription)")
+ }
  */
 
 /**
- #
+ # 심볼릭 링크 만들기
+ 
+ // createSymbolicLink(atPath:) 메소드는 특정 파일에 대한 심볼릭 링크를 생성
+ // 심볼릭 링크의 경로와 링크가 참조할 파일의 경로를 인수로 사용
+ do {
+	 try filemgr.createSymbolicLink(atPath: filePath2,
+									withDestinationPath: filePath1)
+	 print("Link successful")
+ } catch let error {
+	 print("Error: \(error.localizedDescription)")
+ }
  */

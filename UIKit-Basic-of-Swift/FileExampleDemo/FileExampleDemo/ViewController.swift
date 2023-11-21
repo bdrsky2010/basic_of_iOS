@@ -41,6 +41,11 @@ class ViewController: UIViewController {
 		}
 	}
 	
+	private func createFile(atPath: String, contents: Data?, attributes: [FileAttributeKey : Any]?) {
+		fileMgr.createFile(atPath: atPath, contents: contents, attributes: attributes)
+		dump("create file")
+	}
+	
 	@IBAction func saveText(_ sender: Any) {
 		// 텍스트필드 객체의 텍스트를 변환하고 이를 Data 객체에 할당
 		// 그 내용을 파일 관리자 객채의 createFile() 메서드를 호출하여 파일에 기록
@@ -138,22 +143,24 @@ class ViewController: UIViewController {
 		if fileMgr.fileExists(atPath: sourceFile) {
 			dump("File exists")
 		} else {
-			dump("File are found")
+			dump("File not found")
 			createFile(atPath: sourceFile, contents: nil, attributes: nil)
 		}
+		
+		//		let data = try Data(contentsOf: URL(filePath: sourceFile))
 		
 		if let dataBuffer = fileMgr.contents(atPath: sourceFile) {
 			var content: String
 			var newContent: String
-			var newData: Data?
 			
 			dump(dataBuffer)
-			content = String(decoding: dataBuffer, as: UTF8.self)
+			//			content = String(decoding: dataBuffer, as: UTF8.self)
+			content = String(data: dataBuffer, encoding: .utf8) ?? ""
 			dump(content)
 			
 			if content.isEmpty {
 				dump("content is empty")
-				content = contents.randomElement()!
+				content = contents.randomElement() ?? ""
 				do {
 					let sourceData = try JSONEncoder().encode(content)
 					createFile(atPath: sourceFile, contents: sourceData, attributes: nil)
@@ -166,40 +173,50 @@ class ViewController: UIViewController {
 			
 			do {
 				// 텍스트를 역순으로 바꾸어 저장하는 코드를 작성하세요.
-				newData = try JSONEncoder().encode(newContent)
-				createFile(atPath: destinationFile, contents: newData, attributes: nil)
+				if let reverseData = newContent.data(using: .utf8) {
+					try reverseData.write(to: URL(filePath: destinationFile))
+				}
 			} catch {
 				dump(error)
 			}
 		}
 	}
 	
-	private func createFile(atPath: String, contents: Data?, attributes: [FileAttributeKey : Any]?) {
-		fileMgr.createFile(atPath: atPath, contents: contents, attributes: attributes)
-		dump("create file")
-	}
-	
 	/*
 	 디렉토리 및 파일 예제 04
 	 특정 파일에 있는 숫자들을 읽어서 합계와 평균을 구하고, 그 결과를 새로운 파일에 저장하는 코드를 작성해보세요.
-
+	 
 	 (숫자들은 한 줄에 하나씩 정수로 저장되어 있다고 가정합니다.)
 	 (또는 숫자들은 ','로 구분하여 저장되어 있다고 가정합니다.)
 	 */
 	@IBAction func fileCalc(_ sender: UIButton) {
-		let sourceFile = "/Users/user/Documents/numbers.txt"
-		let destinationFile = "/Users/user/Documents/summary.txt"
-		let numbers: [Int] = (0...4).map { _ in Int.random(in: 50...200) }
-
-		if fileMgr.fileExists(atPath: sourceFile) {
-			dump("File exists")
-		} else {
-			dump("File are found")
-			createFile(atPath: sourceFile, contents: nil, attributes: nil)
-		}
 		
 		do {
+			let sourceFile = "/Users/minjaekim/Documents/numbers.txt"
+			let destinationFile = "/Users/minjaekim/Documents/summary.txt"
+			let numbers: [Int] = (0...4).map { _ in Int.random(in: 50...200) }
+			
+			if fileMgr.fileExists(atPath: sourceFile) {
+				dump("File exists")
+			} else {
+				dump("File not found")
+				let numbersData = numbers.map { String($0) }.joined(separator: ",").data(using: .utf8)
+				createFile(atPath: sourceFile, contents: numbersData, attributes: nil)
+			}
+			
 			// 숫자들의 합계와 평균을 구하고 저장하는 코드를 작성하세요.
+			let data = try Data(contentsOf: URL(filePath: sourceFile))
+			if let text = String(data: data, encoding: .utf8) {
+				
+				let numbersData = text.split(separator: ",").compactMap { Int($0) }
+				let sum = numbersData.reduce(0, +)
+				let average = Double(sum) / Double(numbersData.count)
+				let summary = "합계: \(sum)\n평균: \(average)"
+				
+				if let summaryData = summary.data(using: .utf8) {
+					try summaryData.write(to: URL(filePath: destinationFile))
+				}
+			}
 		} catch {
 			print(error)
 		}
@@ -208,15 +225,47 @@ class ViewController: UIViewController {
 	/*
 	 디렉토리 및 파일 예제 05
 	 특정 파일에 있는 텍스트를 읽어서 단어의 빈도수를 계산하고, 그 결과를 새로운 파일에 저장하는 코드를 작성해보세요.
-
+	 
 	 단어는 공백으로 구분되며, 대소문자는 구분하지 않습니다.
-
+	 
 	 결과는 단어와 빈도수를 콜론(:)으로 구분하고, 한 줄에 하나씩 저장합니다.
-
+	 
 	 예를 들어, 원본 파일에 "Hello hello world" 가 있으면, 새로운 파일에 "hello:2\nworld:1" 가 저장되어야 합니다.
 	 */
 	@IBAction func fileFrequency(_ sender: Any) {
-		dump("aa")
+		do {
+			let sourceFile = "/Users/minjaekim/Documents/helloworld.txt"
+			let destinationFile = "/Users/minjaekim/Documents/summary.txt"
+			
+			if fileMgr.fileExists(atPath: sourceFile) {
+				dump("File exists")
+			} else {
+				dump("File not found")
+				let helloData = "Hello hello world".data(using: .utf8)
+				createFile(atPath: sourceFile, contents: helloData, attributes: nil)
+			}
+			
+			// 단어의 빈도수를 계산하고 저장하는 코드
+			let data = try Data(contentsOf: URL(fileURLWithPath: sourceFile))
+			if let text = String(data: data, encoding: .utf8) {
+				
+				let words = text.split(separator: " ").map { $0.lowercased() }
+				var frequency = [String:Int]()
+				for word in words {
+					frequency[word, default: 0] += 1
+				}
+				var result = ""
+				for (word, count) in frequency {
+					result += "\(word):\(count)\n"
+				}
+				
+				if let resultData = result.data(using: .utf8) {
+					try resultData.write(to: URL(fileURLWithPath: destinationFile))
+				}
+			}
+		} catch {
+			print(error)
+		}
 	}
 }
 

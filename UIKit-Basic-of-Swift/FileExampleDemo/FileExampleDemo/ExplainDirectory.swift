@@ -128,24 +128,3 @@ import Foundation
  NSFileOwnerAccountID
  NSFileGroupOwnerAccountID
  */
-
-/**
- # 파일 존재 여부 확인
- 
- //  FileManager 인스턴스 참조
- let filemgr = FileManager.default
-
- // 파일 존재 여부 확인
- //  fileExists(atPath:) 메소드는 문제의 파일에 대한 경로를 포함하는 NSString 객체를 인수로 취하고 지정된 파일의 존재 여부를 나타내는 부울Boolean 값을 반환
- if filemgr.fileExists(atPath: "/Applications") {
-	 print("File exists")
- } else {
-	 print("File not found")
- }
- */
-
-/**
- # 두 파일의 내용 비교
- 
- 
- */
