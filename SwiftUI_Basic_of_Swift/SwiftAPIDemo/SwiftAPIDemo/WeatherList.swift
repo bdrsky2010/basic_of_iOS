@@ -8,27 +8,33 @@
 import SwiftUI
 
 struct WeatherList: View {
-	@StateObject var network = WeatherAPI.shared
+	@Binding var weather: Weather
 	
 	var body: some View {
-		List {
-			ForEach(network.posts, id: \.self) { result in
+		ZStack {
+			Color.black
+				.ignoresSafeArea()
+				.opacity(0.12)
+			RoundedRectangle(cornerSize: CGSize(width: 15, height: 15))
+				.padding(.horizontal, 20)
+				.frame(height: 400)
+				.foregroundStyle(.white)
+			VStack {
 				HStack {
-					AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(result.icon)@2x.png"))
+					AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weather.icon)@2x.png"))
+					Spacer()
 					VStack {
-						Text(result.main)
-						Text(result.description)
-						Text(result.icon)
+						Text(weather.main)
+						Text(weather.description)
 					}
 				}
+				.padding(.horizontal, 40)
 			}
-		}
-		.onAppear {
-			network.feachData()
 		}
 	}
 }
 
 #Preview {
-    WeatherList()
+	// main: "Clouds", description: "overcast clouds", icon: "04d")
+	WeatherList(weather: .constant(Weather(main: "Clouds", description: "overcast clouds", icon: "04d")))
 }
