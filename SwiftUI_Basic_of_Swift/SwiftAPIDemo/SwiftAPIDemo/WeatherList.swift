@@ -13,10 +13,13 @@ struct WeatherList: View {
 	var body: some View {
 		List {
 			ForEach(network.posts, id: \.self) { result in
-				VStack {
-					Text(result.main)
-					Text(result.description)
-					Text(result.icon)
+				HStack {
+					AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(result.icon)@2x.png"))
+					VStack {
+						Text(result.main)
+						Text(result.description)
+						Text(result.icon)
+					}
 				}
 			}
 		}
