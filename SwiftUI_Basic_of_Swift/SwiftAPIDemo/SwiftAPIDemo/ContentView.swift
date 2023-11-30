@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
 	
-	@StateObject var network = NewsAPI.shared
+	@StateObject var network = WeatherAPI.shared
 	
     var body: some View {
 		NavigationStack {
@@ -21,12 +21,17 @@ struct ContentView: View {
 				}
 
 				NavigationLink {
-					WeatherList()
+					if !network.posts.isEmpty {
+						WeatherList(weather: $network.posts[0])
+					}
 				} label: {
 					Text("WeatherList")
 				}
 				
 			}
+		}
+		.onAppear {
+			network.feachData()
 		}
     }
 }
