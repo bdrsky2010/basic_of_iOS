@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Current: Decodable {
-	let weathers: [Weather]
+	let weather: [Weather]
 }
 
 struct Weather: Decodable, Hashable {
@@ -75,11 +75,12 @@ class WeatherAPI: ObservableObject {
 //            print(str)
 			do {
 				let json = try JSONDecoder().decode(Current.self, from: data)
-				print(json.weathers.count)
+				print(json.weather.count)
 				DispatchQueue.main.async {
-					self.posts = json.weathers
+					self.posts = json.weather
 				}
 			} catch let error {
+				print("2")
 				print(error.localizedDescription)
 			}
 
