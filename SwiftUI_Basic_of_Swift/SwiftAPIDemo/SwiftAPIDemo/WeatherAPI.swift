@@ -77,10 +77,10 @@ class WeatherAPI: ObservableObject {
 				let json = try JSONDecoder().decode(Current.self, from: data)
 				print(json.weather.count)
 				DispatchQueue.main.async {
+					print(json.weather)
 					self.posts = json.weather
 				}
 			} catch let error {
-				print("2")
 				print(error.localizedDescription)
 			}
 
