@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeatherList: View {
 	@Binding var weather: Weather
+	let name: String
 	
 	var body: some View {
 		ZStack {
@@ -20,21 +21,20 @@ struct WeatherList: View {
 				.frame(height: 400)
 				.foregroundStyle(.white)
 			VStack {
-				HStack {
-					AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weather.icon)@2x.png"))
-					Spacer()
-					VStack {
-						Text(weather.main)
-						Text(weather.description)
-					}
+				let iconUrlString = "https://openweathermap.org/img/wn/\(weather.icon)@2x.png"
+				AsyncImage(url: URL(string: iconUrlString))
+				VStack {
+					Text(weather.main)
+					Text(weather.description)
 				}
-				.padding(.horizontal, 40)
 			}
+			.padding(.horizontal, 40)
+			.navigationTitle(name)
 		}
 	}
 }
 
 #Preview {
 	// main: "Clouds", description: "overcast clouds", icon: "04d")
-	WeatherList(weather: .constant(Weather(main: "Clouds", description: "overcast clouds", icon: "04d")))
+	WeatherList(weather: .constant(Weather(main: "Clouds", description: "overcast clouds", icon: "04d")), name: "몰러")
 }
