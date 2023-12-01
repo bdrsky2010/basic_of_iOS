@@ -22,7 +22,7 @@ struct ContentView: View {
 
 				NavigationLink {
 					if !network.posts.isEmpty {
-						WeatherList(weather: $network.posts[0])
+						WeatherList(weather: $network.posts[0], name: network.current?.name ?? "")
 					}
 				} label: {
 					Text("WeatherList")
