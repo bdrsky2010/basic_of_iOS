@@ -9,6 +9,14 @@ import SwiftUI
 
 struct Current: Decodable {
 	let weather: [Weather]
+	let main: Main
+	let name: String
+}
+
+struct Main: Decodable {
+	let temp: Double
+	let temp_min: Double
+	let temp_max: Double
 }
 
 struct Weather: Decodable, Hashable {
@@ -21,34 +29,18 @@ class WeatherAPI: ObservableObject {
 	static let shared = WeatherAPI()
 	private init() { }
 	@Published var posts = [Weather]()
+	@Published var current: Current?
 	
 	
 	private var apiKey: String? {
-		get {
-			let keyfilename = "ApiKeys"
-			let api_key = "WEATHER_API_KEY"
-			
-			// 생성한 .plist 파일 경로 불러오기
-			guard let filePath = Bundle.main.path(forResource: keyfilename, ofType: "plist") else {
-				fatalError("Couldn't find file '\(keyfilename).plist'")
-			}
-			
-			// .plist 파일 내용을 딕셔너리로 받아오기
-			let plist = NSDictionary(contentsOfFile: filePath)
-			
-			// 딕셔너리에서 키 찾기
-			guard let value = plist?.object(forKey: api_key) as? String else {
-				fatalError("Couldn't find key '\(api_key)'")
-			}
-			
-			return value
-		}
+		get { getValueOfPlistFile("ApiKeys", "WEATHER_API_KEY") }
 	}
 	
 	func feachData() {
 		guard let apiKey = apiKey else { return }
 		
-		let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=\(apiKey)"
+//		let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=\(apiKey)"
+		let urlString = "https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=\(apiKey)"
 		
 		guard let url = URL(string: urlString) else { return }
 		
@@ -77,7 +69,7 @@ class WeatherAPI: ObservableObject {
 				let json = try JSONDecoder().decode(Current.self, from: data)
 				print(json.weather.count)
 				DispatchQueue.main.async {
-					print(json.weather)
+					self.current = json
 					self.posts = json.weather
 				}
 			} catch let error {
