@@ -20,6 +20,7 @@
 		7BD221542BA47AE400BD428A /* TheComposableArchitectureEXUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD221532BA47AE400BD428A /* TheComposableArchitectureEXUITestsLaunchTests.swift */; };
 		7BD221622BA47B1C00BD428A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7BD221612BA47B1C00BD428A /* ComposableArchitecture */; };
 		7BD221642BA47E6F00BD428A /* CounterFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD221632BA47E6F00BD428A /* CounterFeature.swift */; };
+		7BEC6C422BB4056B00FB10E6 /* ContactDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEC6C412BB4056B00FB10E6 /* ContactDetailFeature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		7BD221532BA47AE400BD428A /* TheComposableArchitectureEXUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheComposableArchitectureEXUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7BD221632BA47E6F00BD428A /* CounterFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterFeature.swift; sourceTree = "<group>"; };
 		7BD221672BA4918A00BD428A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7BEC6C412BB4056B00FB10E6 /* ContactDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				7BBD30722BAEFDBB00330FE1 /* ContactsView.swift */,
 				7BBD30702BAEFCFD00330FE1 /* ContactsFeature.swift */,
+				7BEC6C412BB4056B00FB10E6 /* ContactDetailFeature.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BEC6C422BB4056B00FB10E6 /* ContactDetailFeature.swift in Sources */,
 				7BD221642BA47E6F00BD428A /* CounterFeature.swift in Sources */,
 				7BB8450B2BAEF1FC00A1180B /* AppFeature.swift in Sources */,
 				7BD221392BA47AE300BD428A /* ContentView.swift in Sources */,

@@ -19,8 +19,9 @@ struct ContactsFeature {
 	struct State: Equatable {
 //		@Presents var addContact: AddContactFeature.State? // 기능 통합
 //		@Presents var alert: AlertState<Action.Alert>?
-		@Presents var destination: Destination.State?
 		var contacts: IdentifiedArrayOf<Contact> = []
+		@Presents var destination: Destination.State?
+		var path = StackState<ContactDetailFeature.State>()
 	}
 	
 	enum Action {
@@ -30,6 +31,7 @@ struct ContactsFeature {
 //		case addContact(PresentationAction<AddContactFeature.Action>)
 //		case alert(PresentationAction<Alert>)
 		case destination(PresentationAction<Destination.Action>)
+		case path(StackAction<ContactDetailFeature.State, ContactDetailFeature.Action>)
 		enum Alert: Equatable {
 			case confirmDeletion(id: Contact.ID)
 		}
@@ -64,10 +66,22 @@ struct ContactsFeature {
 			case let .deleteButtonTapped(id: id):
 				state.destination = .alert(.deleteConfirmation(id: id))
 				return .none
+				
+			case let .path(.element(id: id, action: .delegate(.confirmDeletion))):
+				guard let detailState = state.path[id: id] else { return .none }
+				state.contacts.remove(id: detailState.contact.id)
+				return .none
+				
+			case .path:
+				return .none
 			}
 		}
 		// ifLet을 사용하여 Reducer 통합
 		.ifLet(\.$destination, action: \.destination)
+		// forEach를 사용하여 ContactsFeature의 스택에 ContactDetailFeature를 통합
+		.forEach(\.path, action: \.path) {
+			ContactDetailFeature()
+		}
 	}
 }
 
