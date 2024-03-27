@@ -10,5 +10,9 @@
         <page name='Concurrency-Actor'/>
         <page name='Higher-order function'/>
         <page name='Collection-Set'/>
+        <page name='Protocol'/>
+        <page name='Optional Chaining'/>
+        <page name='Subscript'/>
+        <page name='Generic'/>
     </pages>
 </playground>

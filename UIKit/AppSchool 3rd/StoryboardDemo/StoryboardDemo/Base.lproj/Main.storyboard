@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StoryboardDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bR5-dP-ofq">
+                                <rect key="frame" x="328" y="789" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchingImgSize:" destination="BYZ-38-t0r" eventType="valueChanged" id="zbo-UK-u0l"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZPU-Mf-ffd">
+                                <rect key="frame" x="15.999999999999996" y="785" width="53.666666666666657" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="변경"/>
+                                <connections>
+                                    <action selector="tabImgChangeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aVu-y4-XEH"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unnamed.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="IfF-Xs-Agt">
+                                <rect key="frame" x="76.666666666666686" y="201" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.90196078430000004" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="9RG-fJ-alw"/>
+                                    <constraint firstAttribute="height" constant="128" id="OMZ-Nl-ydp"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IfF-Xs-Agt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="77G-bN-UW3"/>
+                            <constraint firstItem="IfF-Xs-Agt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="142" id="9uL-40-qeB"/>
+                            <constraint firstItem="ZPU-Mf-ffd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ac4-cf-1T5"/>
+                            <constraint firstAttribute="bottom" secondItem="bR5-dP-ofq" secondAttribute="bottom" constant="32" id="Mgp-NX-xi2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bR5-dP-ofq" secondAttribute="trailing" constant="16" id="R38-Pv-9Ed"/>
+                            <constraint firstAttribute="bottom" secondItem="ZPU-Mf-ffd" secondAttribute="bottom" constant="32" id="Yxe-dW-7ee"/>
+                            <constraint firstItem="bR5-dP-ofq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZPU-Mf-ffd" secondAttribute="trailing" constant="8" symbolic="YES" id="cmw-fa-rJZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="IfF-Xs-Agt" id="I2X-0X-eID"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-22.137404580152669" y="3.5211267605633805"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="unnamed.jpg" width="828" height="1060"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

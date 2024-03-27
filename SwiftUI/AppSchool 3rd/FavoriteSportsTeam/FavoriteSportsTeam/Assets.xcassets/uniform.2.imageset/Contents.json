@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "heung-min-son-mens-stadium-club-tottenham-hotspur-third-shirt-202324__66082.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
