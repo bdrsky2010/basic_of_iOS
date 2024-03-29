@@ -7,13 +7,24 @@
 
 import SwiftUI
 import SwiftData
-import Dependencies
+import ComposableArchitecture
 
 @main
 struct SwiftDataTCAApp: App {
+	@Dependency(\.databaseService) var databaseService
+	var modelContext: ModelContext {
+		guard let modelContext = try? self.databaseService.context() else {
+			fatalError("Could not find modelcontext")
+		}
+		return modelContext
+	}
+	let store: StoreOf<ContentFeature> = Store(initialState: ContentFeature.State()) {
+		ContentFeature()
+	}
+	
     var body: some Scene {
         WindowGroup {
-            ContentView()
+			ContentView(store: store)
         }
     }
 }
