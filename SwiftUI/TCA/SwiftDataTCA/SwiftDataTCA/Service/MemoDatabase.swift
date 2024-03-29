@@ -10,7 +10,8 @@ import SwiftData
 import Dependencies
 
 public struct MemoDatabase {
-	var fetch: @Sendable () throws -> [Memo]
+	var fetchAll: @Sendable () throws -> [Memo]
+	var fetch: @Sendable (FetchDescriptor<Memo>) throws -> [Memo]
 	var add: @Sendable (Memo) throws -> Void
 	var delete: @Sendable (Memo) throws -> Void
 	
@@ -22,12 +23,22 @@ public struct MemoDatabase {
 
 extension MemoDatabase: DependencyKey {
 	public static let liveValue = Self(
-		fetch: {
+		fetchAll: {
 			do {
 				@Dependency(\.databaseService.context) var context
 				let memoContext = try context()
 				
 				let descriptor = FetchDescriptor<Memo>(sortBy: [SortDescriptor(\.timestamp)])
+				return try memoContext.fetch(descriptor)
+			} catch {
+				return []
+			}
+		},
+		fetch: { descriptor in
+			do {
+				@Dependency(\.databaseService.context) var context
+				let memoContext = try context()
+				
 				return try memoContext.fetch(descriptor)
 			} catch {
 				return []
