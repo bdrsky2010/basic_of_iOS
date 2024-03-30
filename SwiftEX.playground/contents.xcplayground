@@ -14,5 +14,6 @@
         <page name='Optional Chaining'/>
         <page name='Subscript'/>
         <page name='Generic'/>
+        <page name='Function-Deep'/>
     </pages>
 </playground>
