@@ -15,5 +15,6 @@
         <page name='Subscript'/>
         <page name='Generic'/>
         <page name='Function-Deep'/>
+        <page name='Defer'/>
     </pages>
 </playground>
