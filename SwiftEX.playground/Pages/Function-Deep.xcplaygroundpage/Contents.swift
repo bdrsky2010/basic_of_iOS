@@ -3,6 +3,37 @@ import Foundation
 // 함수를 좀 더 deep하게 공부해보자
 
 /**
+ # @discardableResult
+	- 직역하면 버릴 수 있는 결과 라는 의미로
+	- 해당 attribute(속성)을 함수에 선언해주면 return값을 받지 않을 수 있음.
+	- 즉, 컴파일러에게 return값을 사용하지 않을 수 있다는 속성에 대한 정보를 알려주는 것.
+	- return값을 받아야하는 상황도 있고 받지 않아도 되는 상황에 사용하면 될 것 같다.
+ */
+
+func myFullName(lastName: String, firstName: String) -> (lastName: String, firstName: String) {
+	print("성은 \(lastName)이고 이름은 \(firstName)입니다.")
+	return (lastName, firstName)
+}
+
+// 위에 함수를 호출 시 return 값을 받지 않으면 경고 error가 출력이 되는데
+// 해결하기 위해서는 변수 혹은 상수에 return 값을 할당해줘야 한다.
+myFullName(lastName: "김", firstName: "민재")
+
+// swift4에서 사용하던 방식
+_ = myFullName(lastName: "김", firstName: "민재")
+
+// swift 5.2부터 @discardableResult 속성을 사용하면
+// 위에 코드처럼 경고 error가 출력이 되지않는다.
+// swift버전이 업그레이드됨에 따라 발전된 언어 사용법을 사용하는 것이 더 좋을 것 같으니 잘 알아두자
+@discardableResult
+func myFullName2(lastName: String, firstName: String) -> (lastName: String, firstName: String) {
+	print("성은 \(lastName)이고 이름은 \(firstName)입니다.")
+	return (lastName, firstName)
+}
+myFullName2(lastName: "김", firstName: "민재")
+
+
+/**
  # 가변파라미터(Variadic Parameters)를 가진 함수
  - 하나의 매개변수로 여러개의 매개변수를 보낼 수 있다
  - 가변 파라미터로 전달 받은 데이터는 배열 형태로 전달

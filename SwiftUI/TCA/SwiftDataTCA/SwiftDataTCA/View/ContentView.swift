@@ -94,7 +94,7 @@ struct ContentView: View {
 			.toolbar {
 				ToolbarItemGroup(placement: .bottomBar) {
 					Spacer()
-					Text("48개의 메모")
+					Text("\(store.memos.count)개의 메모")
 					Spacer()
 					Button {
 						
