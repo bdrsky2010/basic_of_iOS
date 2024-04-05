@@ -1,5 +1,38 @@
 import Foundation
 
+/**
+ # @unknown 키워드
+ - 만약 전에 선언해놓은 enum의 case가 늘어난다면 (Non-frozen 열거형)
+ - 실제 프로젝트에서는 늘어날 수 있는 경우가 많음
+ */
+
+enum LoginProvider {
+	case email
+	case facebook
+	case google
+	
+	case kakaotalk
+}
+
+/**
+ - @unknown 키워드를 default블럭에 추가
+ 
+ - switch문에서 열거형의 모든 케이스를 다루지 않는 경우,
+	스위치문에서 모든 열거형의 케이스를 다루지 않았다고
+	경고를 통해 알려줌 ===> 개발자의 실수 가능성을 컴파일 시점에 알려줌
+ */
+let userLogin = LoginProvider.google
+switch userLogin {
+case .email:
+	print("이메일 로그인")
+case .facebook:
+	print("페이스북 로그인")
+case .google:
+	print("구글 로그인")
+@unknown default:
+	print("그 외의 모든 경우")
+}
+
 // 열거형 예제 01
 enum Suit {
 	case spade, heart, diamon, club
